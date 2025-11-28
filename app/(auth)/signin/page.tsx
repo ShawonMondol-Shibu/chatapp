@@ -55,18 +55,11 @@ const mutation = useMutation({
   mutationFn: loginUser,
   onSuccess: (data) => {
     setCookie('token', data.access)
-    // Save tokens
-    localStorage.setItem("access_token", data.access);
-    localStorage.setItem("refresh_token", data.refresh);
-
-    // Save user info
-    localStorage.setItem("user", JSON.stringify(data.user));
-
-    // Save chat sessions (if any)
-    localStorage.setItem("chat_sessions", JSON.stringify(data.chat_sessions));
-
-    // Save claim uploads
-    localStorage.setItem("claim_uploads", JSON.stringify(data.claim_uploads));
+    localStorage.setItem("access_token", data.access)
+      localStorage.setItem("refresh_token", data.refresh)
+      localStorage.setItem("user", JSON.stringify(data.user))
+      localStorage.setItem("chat_sessions", JSON.stringify(data.chat_sessions || []))
+      localStorage.setItem("claim_uploads", JSON.stringify(data.claim_uploads || []))
 
     toast.success(data.message || "Login successful!");
 
