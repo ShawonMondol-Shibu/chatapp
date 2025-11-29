@@ -39,9 +39,8 @@ const signInSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(8, "Password must be at least 8 characters"),
-  terms: z.literal(true, {
-    // ensures checkbox is checked
-    errorMap: () => ({ message: "You must accept the terms and conditions" }),
+   terms: z.boolean().refine((val) => val === true, {
+    message: "You must accept the terms and conditions",
   }),
 });
 
