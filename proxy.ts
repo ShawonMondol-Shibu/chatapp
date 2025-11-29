@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
  
-const allowedOrigins = ['https://api.winaclaim.com/']
+const allowedOrigins = ['*']
  
 const corsOptions = {
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
