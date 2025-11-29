@@ -71,9 +71,9 @@ export function ChatUI() {
       </section>
 
       {/* Logout */}
-      <div className="fixed w-fit right-4 top-4 sm:right-10 sm:top-10 group hover:drop-shadow-lg transition-all duration-300 ease-in-out">
+      <div className="fixed w-fit right-4 top-4 sm:right-10 sm:top-10 group hover:drop-shadow-lg transition-all duration-300 ease-in-out ">
         <DropdownMenu>
-          <DropdownMenuTrigger className="cursor-pointer rounded-2xl group-hover:text-white group-hover:bg-green-500">
+          <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-white group-hover:text-white group-hover:bg-green-500">
             <div className="flex items-center justify-center gap-1">
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
