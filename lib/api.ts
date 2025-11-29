@@ -5,11 +5,11 @@ import type { loginType, registerType } from "./types"
 /* -------------------------------------------
    BASE CONFIG
 -------------------------------------------- */
-export const API_BASE = "https://api.winaclaim.com/api"
+export const API_BASE = process.env.NEXT_PUBLIC_API_URL
 
 const axiosInstance = axios.create({
   baseURL: API_BASE,
-  headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin":"*" },
+  headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "allow" },
 })
 
 /* -------------------------------------------
