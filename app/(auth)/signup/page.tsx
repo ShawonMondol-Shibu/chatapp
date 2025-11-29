@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useState } from "react";
@@ -35,11 +34,8 @@ const signInSchema = z.object({
     .string()
     .min(1, "Email is required")
     .email("Please enter a valid email address"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must be at least 8 characters"),
-   terms: z.boolean().refine((val) => val === true, {
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  terms: z.boolean().refine((val) => val === true, {
     message: "You must accept the terms and conditions",
   }),
 });
@@ -66,7 +62,7 @@ export default function Page() {
     mutationFn: registerUser,
     onSuccess: (data) => {
       toast.success("Account created successfully!");
-      console.log("API Response:", data);
+      console.log(data);
       router.push("/signin");
     },
     onError: (err: any) => {
@@ -83,189 +79,179 @@ export default function Page() {
       password: data.password,
     };
     mutation.mutate(payload);
-    console.log("Sign in with:", data);
   }
 
   return (
-    <div>
-      <div className="space-y-6 mb-8 text-center">
-        <h1 className="text-4xl font-bold text-teal-600">
-          Create Your Account
-        </h1>
-      </div>
+    <div className="min-h-screen flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-lg mx-auto">
+        
+        {/* Header */}
+        <div className="text-center mb-8 space-y-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-teal-600">
+            Create Your Account
+          </h1>
+         
+    
+        </div>
 
-      <Card className="w-lg bg-white rounded-2xl shadow-xl border-0 p-8">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Email Field */}
-            <FormField
-              control={form.control}
-              name="full_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
-                    Full Name
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your Full Name"
-                      type="text"
-                      {...field}
-                      className="h-11 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-900"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="phone_number"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
-                    Phone Number
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter you Phone Number"
-                      type="text"
-                      {...field}
-                      className="h-11 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-900"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
-                    Email Address
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your Email Address"
-                      type="email"
-                      {...field}
-                      className="h-11 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-900"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="address"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
-                    Address
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your Address"
-                      type="text"
-                      {...field}
-                      className="h-11 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-900"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Password Field */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
-                    Password
-                  </FormLabel>
-                  <FormControl>
-                    <div className="relative">
+        {/* Card Container */}
+        <Card className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border-0">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              
+              {/* FULL NAME */}
+              <FormField
+                control={form.control}
+                name="full_name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
                       <Input
-                        placeholder="••••••••"
-                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your full name"
                         {...field}
-                        className="h-11 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-900 pr-10"
+                        className="h-11"
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-5 w-5" />
-                        ) : (
-                          <Eye className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Checkbox */}
-            <FormField
-              control={form.control}
-              name="terms"
-              render={({ field }) => (
-                <FormItem className="flex items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={(v) => {
-                        // onCheckedChange gives boolean | "indeterminate"
-                        const checked = Boolean(v);
-                        field.onChange(checked);
-                      }}
-                    />
-                  </FormControl>
-
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="text-sm font-medium text-gray-700">
-                      You agree to our friendly privacy policy.
-                    </FormLabel>
-
+                    </FormControl>
                     <FormMessage />
-                  </div>
-                </FormItem>
-              )}
-            />
+                  </FormItem>
+                )}
+              />
 
-            {/* Sign In Button */}
-            <Button
-              type="submit"
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold h-11 rounded-lg transition-colors"
-              disabled={mutation.isPending}
-            >
-              {mutation.isPending ? "Signing up..." : "Sign up"}
-            </Button>
-          </form>
-        </Form>
+              {/* PHONE NUMBER */}
+              <FormField
+                control={form.control}
+                name="phone_number"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your phone number"
+                        {...field}
+                        className="h-11"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        {/* Additional Links */}
-        <div className="space-y-4 ">
-          <div className="text-center text-sm">
-            <span className="text-gray-600">Don't have an account? </span>
+              {/* EMAIL */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email Address</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your email"
+                        type="email"
+                        {...field}
+                        className="h-11"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* ADDRESS */}
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Address</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your address"
+                        {...field}
+                        className="h-11"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* PASSWORD */}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          placeholder="••••••••"
+                          type={showPassword ? "text" : "password"}
+                          {...field}
+                          className="h-11 pr-12"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2"
+                        >
+                          {showPassword ? <EyeOff /> : <Eye />}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* TERMS & CONDITIONS */}
+              <FormField
+                control={form.control}
+                name="terms"
+                render={({ field }) => (
+                  <FormItem className="flex items-start space-x-3">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(v) => field.onChange(Boolean(v))}
+                      />
+                    </FormControl>
+                    <div className="text-sm text-gray-700 leading-tight">
+                      I agree to the{" "}
+                      <span className="text-teal-600 underline cursor-pointer">
+                        privacy policy
+                      </span>
+                      .
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+              {/* SUBMIT */}
+              <Button
+                type="submit"
+                className="w-full h-11 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition"
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? "Signing up..." : "Sign Up"}
+              </Button>
+            </form>
+          </Form>
+
+          {/* BOTTOM LINK */}
+          <div className="text-center text-sm mt-6">
+            <span className="text-gray-600">Already have an account?</span>
             <Link
               href="/signin"
-              className="text-teal-600 font-semibold hover:text-teal-700 transition-colors"
+              className="text-teal-600 font-semibold ml-1 hover:text-teal-700"
             >
               Sign in
             </Link>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }
