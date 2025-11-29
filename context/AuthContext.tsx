@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { loginUser } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
@@ -77,6 +78,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       toast.error(err.message || "Invalid credentials");
     },
   });
+
+  useEffect(()=>{
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+  },[])
 
   /* -------------------------
         EXPOSE MUTATION AS LOGIN

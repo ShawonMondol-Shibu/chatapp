@@ -1,4 +1,4 @@
-import { AuthProvider } from "@/context/AuthContext";
+// import { AuthProvider } from "@/context/AuthContext";
 import Image from "next/image";
 import React from "react";
 
@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         {/* LEFT SIDE (FORM) */}
         <div className="w-full max-w-md">
-          <AuthProvider>{children}</AuthProvider>
+        {children}
 
           {/* Footer Disclaimer */}
           <div className="mt-8 pt-6 border-t border-gray-200 text-center text-xs text-gray-500 space-y-2">
