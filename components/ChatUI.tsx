@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Badge } from "./ui/badge";
 
 export function ChatUI() {
   const router = useRouter();
@@ -85,6 +86,9 @@ export function ChatUI() {
             <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
+              <Badge>{user?.is_subscription? "Premium": "Buy Subscription"}</Badge>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
               <Button
                 onClick={handleLogout}
                 variant="secondary"
@@ -94,6 +98,7 @@ export function ChatUI() {
                 <span className="hidden sm:inline">Logout</span>
               </Button>
             </DropdownMenuItem>
+
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
