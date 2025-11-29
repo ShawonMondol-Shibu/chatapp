@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { LogOut, SendHorizontal, Loader2 } from "lucide-react";
+import { LogOut, SendHorizontal, Loader2, UserCircle } from "lucide-react";
 import { useChatContext } from "@/context/ChatContext";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -15,13 +15,8 @@ export function ChatUI() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const {
-    message,
-    setMessage,
-    history,
-    isLoading,
-    sendMessage,
-  } = useChatContext();
+  const { message, setMessage, history, isLoading, sendMessage } =
+    useChatContext();
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -51,10 +46,11 @@ export function ChatUI() {
 
   return (
     <main className="min-h-screen p-4 sm:p-10 flex flex-col bg-linear-to-br from-green-50 to-white">
-      
       {/* Header */}
       <section className="mb-8 w-fit">
-        <h1 className="text-3xl sm:text-4xl font-semibold text-green-700">Monica</h1>
+        <h1 className="text-3xl sm:text-4xl font-semibold text-green-700">
+          Monica
+        </h1>
         <p className="text-green-600 mt-2 text-sm sm:text-base">
           Your AI insurance claim assistant
         </p>
@@ -64,7 +60,7 @@ export function ChatUI() {
       <Button
         onClick={handleLogout}
         variant="secondary"
-        className="sticky w-fit right-4 top-4 sm:right-10 sm:top-10 gap-2 shadow-lg"
+        className="fixed w-fit right-4 top-4 sm:right-10 sm:top-10 gap-2 hover:bg-green-500 hover:text-white hover:cursor-pointer shadow-lg"
       >
         <LogOut className="h-4 w-4" />
         <span className="hidden sm:inline">Logout</span>
@@ -97,6 +93,10 @@ export function ChatUI() {
                   : "bg-gray-200 text-gray-900 rounded-bl-none shadow-sm"
               }`}
             >
+              <div className="flex items-center gap-2 shadow w-fit rounded-full px-0.5 mb-1">
+                <UserCircle size={16} />
+                {msg.sender}
+              </div>
               <p className="leading-relaxed">{msg.content}</p>
 
               {msg.flagged && (
