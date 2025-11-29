@@ -11,14 +11,21 @@ import { useChatContext } from "@/context/ChatContext";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export function ChatUI() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const {user}=useAuth()
+  const { user } = useAuth();
   const { message, setMessage, history, isLoading, sendMessage } =
     useChatContext();
 
@@ -63,33 +70,33 @@ export function ChatUI() {
       </section>
 
       {/* Logout */}
-      <div className="fixed w-fit right-4 top-4 sm:right-10 sm:top-10 drop-shadow-lg">
-
-      <DropdownMenu>
-  <DropdownMenuTrigger>
-  <Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>CN</AvatarFallback>
-</Avatar>
-  </DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem>
-        <Button
-        onClick={handleLogout}
-        variant="secondary"
-        className=" gap-2 hover:bg-green-500 hover:text-white hover:cursor-pointer "
-      >
-        <LogOut className="h-4 w-4" />
-        <span className="hidden sm:inline">Logout</span>
-      </Button>
-    </DropdownMenuItem>
-
-  </DropdownMenuContent>
-</DropdownMenu>
+      <div className="fixed w-fit right-4 top-4 sm:right-10 sm:top-10 group hover:drop-shadow-lg transition-all duration-300 ease-in-out">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="cursor-pointer rounded-2xl group-hover:text-white group-hover:bg-green-500">
+            <div className="flex items-center justify-center gap-1">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <small className="capitalize font-semibold">{user?.full_name}</small>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Button
+                onClick={handleLogout}
+                variant="secondary"
+                className=" gap-2 hover:bg-green-500 hover:text-white hover:cursor-pointer "
+              >
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Logout</span>
+              </Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-    
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto mb-6 space-y-4 pr-2">

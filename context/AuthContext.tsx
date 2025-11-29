@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 interface User {
   id: number;
   email: string;
-  name?: string;
+  full_name?: string;
 }
 
 interface LoginPayload {
