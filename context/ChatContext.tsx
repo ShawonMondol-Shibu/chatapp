@@ -63,6 +63,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
     setMessage("");
     setIsLoading(true);
+    console.log(message)
 
     try {
       const response = await chatAPI({ content });
