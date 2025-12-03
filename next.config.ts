@@ -1,15 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  crossOrigin: "use-credentials",
   async headers() {
     return [
       {
-        source: "/:path*",
+        source: "/api/:path*",
         headers: [
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "GET, POST, PUT, DELETE, OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
+          { key: "Access-Control-Allow-Origin", value: "https://api.winaclaim.com" },
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Content-Type, Authorization",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, PUT, DELETE, OPTIONS",
+          },
         ],
       },
     ];
@@ -17,3 +23,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
